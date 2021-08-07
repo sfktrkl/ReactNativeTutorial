@@ -1,7 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
+  // name will be set as the string.
+  const [ name, setName ] = useState('Safak');
+  // It can be used more than one states.
+  // Any type can be passed to the state object, boolean, string etc..
+  const [ person, setPerson ] = useState({ name: 'Mario', age: 40 });
+  const clickHandler = () => {
+      setName('Mehmet');
+      setPerson({ name: 'Luigi', age: 30 });
+  }
+
   return (
     <View style={styles.container}>
     { /* View component is just like div component in HTML */ }
@@ -16,6 +26,12 @@ export default function App() {
         { /* But texts within texts will inherit the styles. */ }
         <Text style={styles.boldText}>Lorem ipsum <Text>dolor sit amet.</Text></Text>
       </View>
+
+      { /* Output the dynamic data using the variable name. */ }
+      <Text style={ { marginTop: 20 } }>My name is { name }.</Text>
+      <Text>His name is {person.name} and his age is {person.age}.</Text>
+      { /* An arrow function can also be used in onPress event. */ }
+      <Button title='Update' onPress={clickHandler} />
     </View>
   );
 }
