@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 
 export default function App() {
   // name will be set as the string.
@@ -28,6 +28,15 @@ export default function App() {
     { name: 'Ethan', key: '6' },
     { name: 'Aiden', key: '7' },
   ]);
+
+  const pressHandler = (key: string) => {
+    // Since it depends on the current state of the people, it is safer and more reliable
+    // creating a function which returns the new state of the people.
+    setPeople((people) => {
+      // Remove the person which is pressed.
+      return people.filter(person => person.key != key)
+    })
+  }
 
   return (
     <View style={styles.container}>
@@ -94,6 +103,20 @@ export default function App() {
         data={ people }
         renderItem={({ item }) => (
           <Text style={styles.flatListItem}>{item.name}</Text>
+        )}
+      />
+
+      { /* It is possible making a button which can be pressed, but button doesn't have a style prop. */ }
+      { /* If more control over the appearance is needed use one of the Touchable components to wrap other components. */ }
+      <FlatList 
+        numColumns={4}
+        keyExtractor={(item) => item.key}
+        style={styles.flatList}
+        data={ people }
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => pressHandler(item.key)} >
+            <Text style={styles.flatListItem}>{item.name}</Text>
+          </TouchableOpacity>
         )}
       />
 
