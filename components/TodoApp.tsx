@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
 
 import Header from './Header';
 import Todo from './Todo';
@@ -22,6 +22,15 @@ export default function TodoApp() {
   };
 
   const submitHandler = (text: string) => {
+    if (text.length <= 3)
+    {
+      // Title, message, and an array of object representing buttons
+      Alert.alert('OOPS!', 'Todos must be over 3 chars long.', [
+        { text: 'Understood', onPress: () => console.log('Todo minimum char alert closed.')},
+      ]);
+      return;
+    }
+
     setTodos((todos) => {
       return [
         // Spread operator, insert all elements from todos.
