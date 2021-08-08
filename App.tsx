@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
 
 export default function App() {
   // name will be set as the string.
@@ -81,6 +81,22 @@ export default function App() {
         ))}
       </ScrollView>
 
+      { /* Use FlatList to create a list, it can be better in performance and probably with less code. */ }
+      { /* FlatList automatically looks for a key property, hence doesn't need to set the prop. */ }
+      { /* To identify which property will be used as key, use keyExtractor. */ }
+      { /* Use numColumns to make a grid out of the list */ }
+      { /* It will use scrollable view automatically. */ }
+      { /* Return the JSX in renderItem prop. */ }
+      <FlatList 
+        numColumns={4}
+        keyExtractor={(item) => item.key}
+        style={styles.flatList}
+        data={ people }
+        renderItem={({ item }) => (
+          <Text style={styles.flatListItem}>{item.name}</Text>
+        )}
+      />
+
     </View>
   );
 }
@@ -121,5 +137,16 @@ const styles = StyleSheet.create({
   item: {
     marginTop: 6,
     fontSize: 24,
+  },
+  flatList: {
+    backgroundColor: 'gray',
+    maxHeight: 40,
+    marginTop: 20,
+    paddingRight: 20,
+    paddingLeft: 20,
+  },
+  flatListItem: {
+    width: 80,
+    fontSize: 20,
   },
 });
