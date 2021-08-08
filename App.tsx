@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
   // name will be set as the string.
@@ -18,6 +18,16 @@ export default function App() {
     let age = parseInt(text.replace(/[^0-9]/g, ''));
     setInput({ name: input.name, age: age });
   }
+
+  const [ people, setPeople] = useState([
+    { name: 'James', key: '1' },
+    { name: 'Logan', key: '2' },
+    { name: 'Mason', key: '3' },
+    { name: 'Jacob', key: '4' },
+    { name: 'Lucas', key: '5' },
+    { name: 'Ethan', key: '6' },
+    { name: 'Aiden', key: '7' },
+  ]);
 
   return (
     <View style={styles.container}>
@@ -59,6 +69,18 @@ export default function App() {
         value={ input.age.toString() }
         onChangeText={(text) => onTextChanged(text)} />
 
+      { /* Use ScrollView so it can be scrollable */ }
+      <ScrollView style={styles.list}>
+        { /* To be able to evaluate a Javascript expression use curly braces */ }
+        { /* Create a template with JSX and return it to make a list */ }
+        { /* Parent component which surrounds rest of the content has to have a key prop. */ }
+        { people.map(item => (
+          <View key={item.key}>
+            <Text style={styles.item}>{item.name}</Text>
+          </View>
+        ))}
+      </ScrollView>
+
     </View>
   );
 }
@@ -88,5 +110,16 @@ const styles = StyleSheet.create({
     borderColor: '#777',
     paddingLeft: 8,
     width: 200,
+  },
+  list: {
+    backgroundColor: 'red',
+    maxHeight: 60,
+    marginTop: 20,
+    paddingRight: 20,
+    paddingLeft: 20,
+  },
+  item: {
+    marginTop: 6,
+    fontSize: 24,
   },
 });
