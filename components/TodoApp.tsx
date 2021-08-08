@@ -71,10 +71,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   content: {
+    flex: 1,          // To take the whole horizontal space.
     paddingRight: 40,
     paddingLeft: 40,
   },
   list: {
+    flex: 1,          // To take the whole horizontal space.
     marginTop: 20,
   },
 });
